@@ -1,9 +1,32 @@
+import { createRequire } from 'node:module';
 import PDFDocument from 'pdfkit';
-import archiver from 'archiver';
 import mongoose from 'mongoose';
 import { Event } from '../models/Event.js';
 import { Registration } from '../models/Registration.js';
 import { ApiError } from '../utils/ApiError.js';
+
+const require = createRequire(import.meta.url);
+let archiverModule;
+try {
+  archiverModule = require('archiver');
+} catch (err) {
+  // Fallback for Node < 22.12 where require() cannot synchronously load ESM archiver@8+
+  if (err?.code !== 'ERR_REQUIRE_ESM') {
+    throw err;
+  }
+}
+
+async function createZipArchive(options) {
+  const mod = archiverModule ?? (await import('archiver'));
+  if (typeof mod === 'function') {
+    return mod('zip', options);
+  }
+  const ZipArchive = mod.ZipArchive ?? mod.default?.ZipArchive;
+  if (typeof mod.default === 'function') {
+    return mod.default('zip', options);
+  }
+  return new ZipArchive(options);
+}
 
 export function generateCertificatePdfBuffer({
   attendeeName,
@@ -108,7 +131,7 @@ export async function streamCertificatesZip(eventId, res) {
   res.setHeader('Content-Type', 'application/zip');
   res.setHeader('Content-Disposition', `attachment; filename="certificates-${event.slug}.zip"`);
 
-  const archive = archiver('zip', { zlib: { level: 9 } });
+  const archive = await createZipArchive({ zlib: { level: 9 } });
   archive.pipe(res);
 
   for (const reg of attendees) {
