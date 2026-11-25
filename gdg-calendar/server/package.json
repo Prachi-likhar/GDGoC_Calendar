@@ -1,0 +1,40 @@
+{
+  "name": "gdg-calendar-server",
+  "version": "1.0.0",
+  "description": "Backend API for GDG Event Calendar",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "seed": "node src/seed/seed.js",
+    "test": "vitest run",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "archiver": "^8.0.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "morgan": "^1.10.0",
+    "nanoid": "^6.0.2",
+    "node-cron": "^4.6.0",
+    "nodemailer": "^10.6.1",
+    "pdfkit": "^0.21.0",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.8.4",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "eslint": "^9.18.0",
+    "mongodb-memory-server": "^10.1.4",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.0.0",
+    "vitest": "^3.0.4"
+  }
+}

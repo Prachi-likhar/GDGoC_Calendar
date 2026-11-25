@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-canvas: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f1f5f9;
+  --border-subtle: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+}
+
+.dark {
+  --bg-canvas: #0b0f17;
+  --bg-surface: #121826;
+  --bg-subtle: #192234;
+  --border-subtle: #263147;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+  }
+
+  :focus-visible {
+    outline: 2px solid #4285f4;
+    outline-offset: 2px;
+  }
+}
+
+@keyframes gdg-bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.75;
+  }
+  40% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-gdg-bounce {
+  animation: gdg-bounce 1.2s infinite ease-in-out;
+}
+
+.animate-fade-up {
+  animation: fade-up 0.28s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-gdg-bounce,
+  .animate-fade-up,
+  .animate-pulse,
+  .animate-spin {
+    animation: none !important;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* FullCalendar Dark Mode Polish */
+.dark .fc {
+  --fc-border-color: #263147;
+  --fc-page-bg-color: #121826;
+  --fc-neutral-bg-color: #192234;
+  --fc-list-event-hover-bg-color: #1e293b;
+  --fc-today-bg-color: rgba(66, 133, 244, 0.12);
+  color: #f1f5f9;
+}
+
+.dark .fc .fc-button-primary {
+  background-color: #192234;
+  border-color: #263147;
+  color: #f1f5f9;
+}
+
+.dark .fc .fc-button-primary:hover,
+.dark .fc .fc-button-primary.fc-button-active {
+  background-color: #4285f4;
+  border-color: #4285f4;
+}
+
+.dark .fc .fc-col-header-cell-cushion,
+.dark .fc .fc-daygrid-day-number,
+.dark .fc .fc-list-day-text,
+.dark .fc .fc-list-day-side-text {
+  color: #cbd5e1;
+}
